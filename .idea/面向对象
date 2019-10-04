@@ -1,0 +1,27 @@
+实际上
+var a=12；
+与
+var arr={1,2,3,4,5};
+arr.a=12;
+他俩是一样的，只不过变量是自由的，但是属性是属于一个对象的。
+属性与方法也是如此
+function aaa(){
+ alert(abc);
+}
+arr.aaa=function(){
+alert(abc);
+}
+属性是自由的，但是方法是属于一个对象的
+this指向的是，当前的方法属于谁（当前发生事件的对象）
+
+
+function show(){
+alert(this);
+
+}
+与这个
+window.show=function(){
+alert(this);
+}
+这两个的意思相同。所以其中的this就是指window
+这里也是指全局的函数他是window的方法
