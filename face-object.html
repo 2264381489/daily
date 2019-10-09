@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>face to the objext</title>
+    <style>
+        #div1 input {background:white;}
+        #div1 input.active {background:yellow;}
+        #div1 div {width:200px; height:200px; background:#CCC; display:none;}
+    </style>
+    <script>
+        window.onload=function () {
+            var adiv = document.getElementById('div1');
+            var aDiv = adiv.getElementsByTagName('div');
+            var aBtn = adiv.getElementsByTagName('input');
+            for(var i=0;i<aBtn.length;i++)
+            {
+                aBtn[i].index=i;
+                aBtn[i].onclick=function ()
+                {
+                    for(var i=0;i<aBtn.length;i++)
+                    {
+                        aBtn[i].className='';
+                        aDiv[i].style.display='none';
+                    }
+                    this.className='active';
+                    aDiv[this.index].style.display='block';
+                };
+            }
+        }
+
+
+    </script>
+
+
+</head>
+<body>
+
+<div id="div1">
+<input class="active" type="button" value="aaa" />
+<input type="button" value="bbb" />
+<input type="button" value="ccc" />
+<div style="display:block;">aaa</div>
+<div>dfsadf</div>
+<div>erwqerwe</div>
+</div>
+</body>
+</html>
