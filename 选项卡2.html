@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>face-to-the-object2</title>
+<style>
+#div1 input {background:white;}
+#div1 input.active {background:yellow;}
+#div1 div {width:200px; height:200px; background:#CCC; display:none;}
+</style>
+<script>
+
+window.onload=function (ev) {
+     new Tab('div1');
+};
+
+function Tab(id) {
+    alert(this);
+    var wthis=this;//这个this指的是Tab这个对象
+	var oDiv=document.getElementById(id);
+	this.aBtn=oDiv.getElementsByTagName('input');//为tab对象加入两个属性，aBtn,aDiv
+	this.aDiv=oDiv.getElementsByTagName('div');
+	
+	for(var i=0;i<this.aBtn.length;i++)//循环给每个input（button）加入一个点击事件，设置一个index属性用来当做数组（作为标志div的编号，用这个编号实现与button的一一对应。）
+	{
+
+		this.aBtn[i].index=i;
+		this.aBtn[i].onclick=function () {
+            wthis.fnClick(this);//因为这是一个方法所以无法直接加入abtn中
+            //这个this指的是aBtn【i】
+        };
+	}
+}
+
+Tab.prototype.fnClick=function (oBtn)//一个原型方法，为每个tab加入一个fnClick方法。
+{       alert(this);
+	for(var i=0;i<this.aBtn.length;i++)//每次触发点击事件时，重置每一个input（button）的class。并且将每个对应的div设置为display：none。
+	{
+		this.aBtn[i].className='';
+		this.aDiv[i].style.display='none';
+	}
+	oBtn.className='active';//设置被点中的
+	this.aDiv[oBtn.index].style.display='block';
+}
+</script>
+</head>
+
+<body>
+<div id="div1">
+<input class="active" type="button" value="aaa" />
+<input type="button" value="bbb" />
+<input type="button" value="ccc" />
+<div style="display:block;">aaa</div>
+<div>dfsadf</div>
+<div>erwqerwe</div>
+</div>
+</body>
+</html>
