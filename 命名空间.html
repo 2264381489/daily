@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>命名空间</title>
+    <script>
+        var zns={};
+        zns.common={};
+        zns.fx={};
+        zns.site={};
+        zns.common.getUser= function () {
+            alert('a');
+        };
+        zns.fx.getUser=function () {
+            alert('b');
+
+        };
+        zns.site.getUser=function () {
+            alert("c");
+
+        };
+        zns.common.getUser();
+        zns.site.getUser();
+        zns.fx.getUser();
+        //在一些公司中用这种方式来进行命名空间的设定。三个部分并不存在覆盖，可以让公司中的各个部门不起冲突
+    </script>
+</head>
+<body>
+
+</body>
+</html>

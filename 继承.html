@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>继承</title>
+    <script>
+        function A() {
+            this.abc=12;
+
+        }
+        A.prototype.show=function () {
+            alert(this.abc);
+
+        };
+        function B() {
+            A.call(this);
+
+        }
+        // var obj=new B();
+        // B.prototype=A.prototype;//原型可以相互赋值
+        //其次这是一种引用，并不是单纯·的赋值，
+        //一个call（this）再加上下面的A.Prototype才是继承
+        // alert(obj.abc);
+        for(var i in A.prototype){
+            B.prototype[i]=A.prototype[i];
+        }
+        var obj=new B();//记得n这个句子要在b和a的原型相互引用之后
+        obj.show();
+
+        B.prototype.fn=function () {
+            alert('abc');
+
+        };
+        var objB=new B();
+        var objA=new A();
+        objA.fn();//你会发现尽管fn是B的东西，但是真实的情况是A也能使用，这就说明上面的东西是引用不是别的东西
+        //引用是让两个东西指向同一个空间
+    </script>
+</head>
+<body>
+
+</body>
+</html>
