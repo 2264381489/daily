@@ -15,31 +15,62 @@
         /*}*/
     </style>
     <script>
+        var oDiv;
+        // var oDiv=document.getElementById('div1');
+        var disX;
+        var disY;
         window.onload=function () {
-                     var oDiv=document.getElementById('div1');
-                     oDiv.onmousedown=function (ev)
-                     {
-                         var oEvent=ev||event;
+             oDiv=document.getElementById('div1');//这里出现了一个报错，告诉我onmousedown不能给null，其重要的一点就是onload会先加载，对于odiv的选择必须放在onload内部
+                  oDiv.onmousedown=mousedown;//当你对一个onmousedown这种行为赋值的时候，必须后面不加（）；
+                     // var oDiv=document.getElementById('div1');
+                     // oDiv.onmousedown=function (ev)
+                     // {
+                     //     var oEvent=ev||event;
+                     //
+                     //     var disX=oEvent.clientX-oDiv.offsetLeft;
+                     //     var disY=oEvent.clientY-oDiv.offsetTop;
+//问题来源1：
 
-                         var disX=oEvent.clientX-oDiv.offsetLeft;
-                         var disY=oEvent.clientY-oDiv.offsetTop;
+                         // document.onmousemove=mousemove(ev);
+                         //     // function (ev)
+                         // {//因为你的移动是发生在整个页面中的，用嵌套在odiv的onmousedown中
+                         //     var oEvent=ev||event;
+                         //     oDiv.style.left=oEvent.clientX-disX+'px';
+                         //     oDiv.style.top=oEvent.clientY-disY+'px';
+                         //
+                         // };
+                         // document.onmouseup=mouseup();
+                         //     function ()
+                         // {
+                         //     document.onmousemove=null;
+                         //     document.onmouseup=null;
+                         // };//因为也是在down的执行开始之后才存在这个up所以放在欧尼mousedown里面
 
 
-                         document.onmousemove= function (ev)
-                         {//因为你的移动是发生在整个页面中的，用嵌套在odiv的onmousedown中
-                             var oEvent=ev||event;
-                             oDiv.style.left=oEvent.clientX-disX+'px';
-                             oDiv.style.top=oEvent.clientY-disY+'px';
-
-                         };
-                         document.onmouseup=function ()
-                         {
-                             document.onmousemove=null;
-                             document.onmouseup=null;
-                         };//因为也是在down的执行开始之后才存在这个up所以放在欧尼mousedown里面
-
-                     };
         };
+        function mousedown(ev)
+        {
+            var oEvent = ev || event;
+
+             this.disX = oEvent.clientX - oDiv.offsetLeft;
+             this.disY = oEvent.clientY - oDiv.offsetTop;
+            document.onmousemove=mousemove;
+            document.onmouseup=mouseup;
+        }
+
+        function mousemove(ev)
+        {//因为你的移动是发生在整个页面中的，用嵌套在odiv的onmousedown中
+            var oEvent=ev||event;
+            oDiv.style.left=oEvent.clientX-disX+'px';
+            oDiv.style.top=oEvent.clientY-disY+'px';
+
+        }
+        function mouseup()
+        {
+            document.onmousemove=null;
+            document.onmouseup=null;
+        }//因为也是在down的执行开始之后才存在这个up所以放在欧尼mousedown里面
+
     </script>
 </head>
 <body>
